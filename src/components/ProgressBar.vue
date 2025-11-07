@@ -10,9 +10,9 @@ const props = defineProps<{
   height?: string // Chiều cao của progress bar
 }>()
 
-// Tính % hiện tại
+// Tính % hiện tại (giới hạn tối đa 100%)
 const progressPercentage = computed(() => {
-  return (props.currentTime / props.totalTime) * 100
+  return Math.min(100, (props.currentTime / props.totalTime) * 100)
 })
 
 // Tạo các segments cho progress bar
@@ -160,35 +160,27 @@ const formatTime = (seconds: number): string => {
       <div
         v-for="(marker, index) in timeMarkers"
         :key="'marker-' + index"
-        class="absolute flex flex-col items-center z-10"
+        class="absolute z-10"
         :style="{
           left: `${marker.position}%`,
-          transform: 'translateX(-50%)',
-          top: '10%',
-          bottom: '10%'
+          top: '50%',
+          transform: 'translate(-50%, -50%)'
         }"
       >
-        <!-- Marker line với padding để tránh bo góc -->
-        <div
-          class="w-0.5 h-full opacity-50"
-          :style="{ backgroundColor: marker.color }"
-        ></div>
         <!-- Marker dot -->
         <div
-          class="rounded-full border-2 border-white absolute"
+          class="rounded-full border-2 border-white shadow-md"
           :class="showLabels ? 'w-3 h-3' : 'w-2 h-2'"
           :style="{
             backgroundColor: marker.color,
-            top: '50%',
-            transform: 'translateY(-50%)',
             borderWidth: showLabels ? '2px' : '1px'
           }"
         ></div>
         <!-- Marker label -->
         <div
           v-if="showLabels"
-          class="absolute text-xs text-gray-400 font-medium whitespace-nowrap"
-          :style="{ bottom: `calc(-1.5rem - 10%)` }"
+          class="absolute left-1/2 -translate-x-1/2 text-xs text-gray-400 font-medium whitespace-nowrap"
+          style="top: calc(100% + 0.75rem)"
         >
           {{ marker.label }}
         </div>

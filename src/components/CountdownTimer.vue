@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ProgressBar from './ProgressBar.vue'
+import Button from './Button.vue'
 import type { SignalCard } from '../types'
 
 const props = defineProps<{
@@ -14,6 +15,7 @@ const emit = defineEmits<{
   start: []
   pause: []
   reset: []
+  end: []
 }>()
 
 const formatTime = (seconds: number): string => {
@@ -25,14 +27,30 @@ const formatTime = (seconds: number): string => {
 const timeRemaining = computed(() => {
   return Math.max(0, props.totalTime - props.currentTime)
 })
+
+const isOvertime = computed(() => {
+  return props.currentTime > props.totalTime
+})
+
+const overtimeSeconds = computed(() => {
+  return Math.max(0, props.currentTime - props.totalTime)
+})
 </script>
 
 <template>
   <div class="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto p-6">
     <!-- Timer Display -->
     <div class="text-center">
-      <div class="text-8xl font-bold font-mono mb-2">
+      <div v-if="!isOvertime" class="text-8xl font-bold font-mono mb-2">
         {{ formatTime(timeRemaining) }}
+      </div>
+      <div v-else class="text-center">
+        <div class="text-8xl font-bold font-mono mb-2 text-red-500 animate-pulse">
+          +{{ formatTime(overtimeSeconds) }}
+        </div>
+        <div class="text-2xl font-bold text-red-400 animate-pulse mb-2">
+          OVERTIME
+        </div>
       </div>
       <div class="text-xl text-gray-400">
         {{ formatTime(currentTime) }} / {{ formatTime(totalTime) }}
@@ -50,26 +68,37 @@ const timeRemaining = computed(() => {
 
     <!-- Controls -->
     <div class="flex gap-4">
-      <button
+      <Button
         v-if="!isRunning"
+        variant="success"
+        size="lg"
         @click="emit('start')"
-        class="px-8 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-colors"
       >
         {{ currentTime === 0 ? 'Start' : 'Resume' }}
-      </button>
-      <button
+      </Button>
+      <Button
         v-else
+        variant="warning"
+        size="lg"
         @click="emit('pause')"
-        class="px-8 py-3 bg-yellow-600 hover:bg-yellow-700 rounded-lg font-semibold transition-colors"
       >
         Pause
-      </button>
-      <button
+      </Button>
+      <Button
+        v-if="currentTime > 0"
+        variant="primary"
+        size="lg"
+        @click="emit('end')"
+      >
+        End Session
+      </Button>
+      <Button
+        variant="danger"
+        size="lg"
         @click="emit('reset')"
-        class="px-8 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition-colors"
       >
         Reset
-      </button>
+      </Button>
     </div>
   </div>
 </template>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimeKeeper - OG Image Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #1f2937;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .og-container {
+      width: 1200px;
+      height: 630px;
+      background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+      position: relative;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .og-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+    }
+
+    .og-title {
+      font-size: 96px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+
+    .og-subtitle {
+      font-size: 36px;
+      color: #9ca3af;
+      margin-bottom: 60px;
+      font-weight: 500;
+    }
+
+    .timer-display {
+      font-size: 120px;
+      font-weight: 700;
+      font-family: 'Courier New', monospace;
+      color: white;
+      margin-bottom: 40px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .signal-cards {
+      display: flex;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .signal-card {
+      width: 200px;
+      height: 140px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 24px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .signal-card.green {
+      background: #22c55e;
+      color: white;
+    }
+
+    .signal-card.yellow {
+      background: #eab308;
+      color: white;
+    }
+
+    .signal-card.red {
+      background: #ef4444;
+      color: white;
+    }
+
+    .signal-time {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    /* Decorative elements */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.05;
+    }
+
+    .circle-1 {
+      width: 600px;
+      height: 600px;
+      background: #22c55e;
+      top: -200px;
+      left: -200px;
+    }
+
+    .circle-2 {
+      width: 500px;
+      height: 500px;
+      background: #eab308;
+      bottom: -150px;
+      right: -150px;
+    }
+
+    .circle-3 {
+      width: 400px;
+      height: 400px;
+      background: #ef4444;
+      top: 50%;
+      right: -100px;
+      transform: translateY(-50%);
+    }
+
+    /* Controls */
+    .controls {
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+    }
+
+    .btn-primary:hover {
+      background: #2563eb;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-success {
+      background: #22c55e;
+    }
+
+    .btn-success:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.4);
+    }
+
+    .info {
+      margin-top: 30px;
+      color: #9ca3af;
+      font-size: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="og-container" id="ogContainer">
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+
+    <div class="og-content">
+      <div class="og-title">TimeKeeper</div>
+      <div class="og-subtitle">Professional Timer for Speakers & Presentations</div>
+
+      <div class="timer-display">05:00</div>
+
+      <div class="signal-cards">
+        <div class="signal-card green">
+          <div>Keep Going</div>
+          <div class="signal-time">1:00</div>
+        </div>
+        <div class="signal-card yellow">
+          <div>Conclude</div>
+          <div class="signal-time">1:30</div>
+        </div>
+        <div class="signal-card red">
+          <div>Stop</div>
+          <div class="signal-time">2:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" onclick="captureScreenshot()">
+      📸 Capture Screenshot
+    </button>
+    <button class="btn btn-success" onclick="downloadCanvas()">
+      💾 Download as Image
+    </button>
+  </div>
+
+  <div class="info">
+    <p>OG Image Size: 1200 x 630 pixels (Recommended for Facebook, Twitter, LinkedIn)</p>
+    <p>Right-click on the image above to save, or use the buttons to capture/download</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function captureScreenshot() {
+      const container = document.getElementById('ogContainer');
+
+      html2canvas(container, {
+        width: 1200,
+        height: 630,
+        scale: 2,
+        backgroundColor: '#1f2937',
+        logging: false
+      }).then(canvas => {
+        // Convert canvas to image
+        const image = canvas.toDataURL('image/png');
+
+        // Create a temporary link to download
+        const link = document.createElement('a');
+        link.download = 'timekeeper-og-image.png';
+        link.href = image;
+        link.click();
+      });
+    }
+
+    function downloadCanvas() {
+      const container = document.getElementById('ogContainer');
+
+      html2canvas(container, {
+        width: 1200,
+        height: 630,
+        scale: 2,
+        backgroundColor: '#1f2937',
+        logging: false,
+        useCORS: true
+      }).then(canvas => {
+        canvas.toBlob(blob => {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.download = 'timekeeper-og-image-1200x630.png';
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+        }, 'image/png', 1.0);
+      });
+    }
+
+    // You can also manually take a screenshot using browser DevTools:
+    // 1. Open DevTools (F12)
+    // 2. Press Ctrl+Shift+P (Cmd+Shift+P on Mac)
+    // 3. Type "screenshot" and select "Capture node screenshot"
+    // 4. Click on the og-container element
+  </script>
+</body>
+</html>

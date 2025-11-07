@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import Button from './Button.vue'
 import type { TimerConfig, SignalCard } from '../types'
 import { DEFAULT_CONFIG } from '../types'
 
@@ -180,18 +181,21 @@ const resetToDefault = () => {
 
         <!-- Actions -->
         <div class="flex gap-4 mt-6">
-          <button
+          <Button
+            variant="success"
+            size="md"
             @click="saveSettings"
-            class="flex-1 px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-colors"
+            class="flex-1"
           >
             Save
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="secondary"
+            size="md"
             @click="resetToDefault"
-            class="px-6 py-3 bg-gray-600 hover:bg-gray-700 rounded-lg font-semibold transition-colors"
           >
             Reset to Default
-          </button>
+          </Button>
         </div>
       </div>
     </div>

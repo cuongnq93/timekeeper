@@ -2,9 +2,109 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Toastmaster Timer</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Primary Meta Tags -->
+    <title>TimeKeeper - Professional Timer for Speakers & Presentations | Toastmasters Speech Timer</title>
+    <meta name="title" content="TimeKeeper - Professional Timer for Speakers & Presentations | Toastmasters Speech Timer" />
+    <meta name="description" content="Professional countdown timer for Toastmasters, public speaking, and presentations. Features color-coded signal cards (Green, Yellow, Red), auto/manual modes, customizable timing, and keyboard shortcuts. Perfect for speech contests and practice sessions." />
+    <meta name="keywords" content="timer, toastmaster timer, speech timer, presentation timer, countdown timer, timekeeper, public speaking timer, toastmasters speech timer, speech contest timer, green yellow red timer, signal timer, speaking timer app, free timer, online timer" />
+    <meta name="author" content="TimeKeeper" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="distribution" content="global" />
+    <meta name="rating" content="general" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="%VITE_APP_URL%/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%VITE_APP_URL%/" />
+    <meta property="og:site_name" content="TimeKeeper" />
+    <meta property="og:title" content="TimeKeeper - Professional Timer for Speakers & Presentations" />
+    <meta property="og:description" content="Professional countdown timer for Toastmasters, public speaking, and presentations. Features color-coded signal cards, auto/manual modes, and customizable timing." />
+    <meta property="og:image" content="%VITE_APP_URL%/timekeeper-og-image.webp" />
+    <meta property="og:image:secure_url" content="%VITE_APP_URL%/timekeeper-og-image.webp" />
+    <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TimeKeeper - Professional Timer for Toastmasters and Public Speaking" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="%VITE_APP_URL%/" />
+    <meta name="twitter:site" content="@timekeeper" />
+    <meta name="twitter:creator" content="@timekeeper" />
+    <meta name="twitter:title" content="TimeKeeper - Professional Timer for Speakers & Presentations" />
+    <meta name="twitter:description" content="Professional countdown timer for Toastmasters, public speaking, and presentations. Features color-coded signal cards, auto/manual modes, and customizable timing." />
+    <meta name="twitter:image" content="%VITE_APP_URL%/timekeeper-og-image.webp" />
+    <meta name="twitter:image:alt" content="TimeKeeper - Professional Timer for Toastmasters and Public Speaking" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="application-name" content="TimeKeeper" />
+    <meta name="apple-mobile-web-app-title" content="TimeKeeper" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#1f2937" />
+    <meta name="msapplication-TileColor" content="#1f2937" />
+    <meta name="msapplication-navbutton-color" content="#1f2937" />
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TimeKeeper",
+      "alternateName": "TimeKeeper Timer",
+      "url": "%VITE_APP_URL%/",
+      "description": "Professional countdown timer for Toastmasters, public speaking, and presentations. Features color-coded signal cards, auto/manual modes, and customizable timing.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      },
+      "screenshot": "%VITE_APP_URL%/timekeeper-og-image.webp",
+      "image": "%VITE_APP_URL%/timekeeper-og-image.webp",
+      "featureList": [
+        "Countdown timer with visual progress",
+        "Color-coded signal cards (Green, Yellow, Red)",
+        "Auto and Manual modes",
+        "Customizable timing and colors",
+        "Keyboard shortcuts",
+        "Full-screen signal display",
+        "Debug mode for testing",
+        "Local storage for settings"
+      ],
+      "browserRequirements": "Requires JavaScript. Modern web browser recommended.",
+      "softwareVersion": "1.0",
+      "author": {
+        "@type": "Organization",
+        "name": "TimeKeeper"
+      }
+    }
+    </script>
   </head>
   <body>
     <div id="app"></div>

@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ProgressBar from './ProgressBar.vue'
+import Button from './Button.vue'
 import type { SignalCard } from '../types'
 
 const props = defineProps<{
   currentTime: number
   totalTime: number
   cards: SignalCard[]
+}>()
+
+const emit = defineEmits<{
+  end: []
 }>()
 
 const formatTime = (seconds: number): string => {
@@ -20,7 +25,15 @@ const timeRemaining = computed(() => {
 })
 
 const progressPercentage = computed(() => {
-  return (props.currentTime / props.totalTime) * 100
+  return Math.min(100, (props.currentTime / props.totalTime) * 100)
+})
+
+const isOvertime = computed(() => {
+  return props.currentTime > props.totalTime
+})
+
+const overtimeSeconds = computed(() => {
+  return Math.max(0, props.currentTime - props.totalTime)
 })
 </script>
 
@@ -38,8 +51,9 @@ const progressPercentage = computed(() => {
 
         <!-- Progress Bar -->
         <div class="flex-1 max-w-2xl">
-          <div class="text-xs font-medium text-gray-300 mb-2 text-center">
-            Progress - {{ Math.round(progressPercentage) }}%
+          <div class="text-xs font-medium mb-2 text-center" :class="isOvertime ? 'text-red-400 animate-pulse' : 'text-gray-300'">
+            <span v-if="isOvertime">OVERTIME</span>
+            <span v-else>Progress - {{ Math.round(progressPercentage) }}%</span>
           </div>
           <ProgressBar
             :current-time="currentTime"
@@ -50,12 +64,29 @@ const progressPercentage = computed(() => {
           />
         </div>
 
-        <!-- Time Remaining -->
-        <div class="text-white text-right">
-          <div class="text-xs font-medium text-gray-300 mb-1">Remaining</div>
-          <div class="text-2xl font-bold font-mono">
-            {{ formatTime(timeRemaining) }}
+        <!-- Time Remaining / Overtime / End Button -->
+        <div class="text-white text-right flex items-center gap-4">
+          <div v-if="!isOvertime">
+            <div class="text-xs font-medium text-gray-300 mb-1">Remaining</div>
+            <div class="text-2xl font-bold font-mono">
+              {{ formatTime(timeRemaining) }}
+            </div>
           </div>
+          <div v-else>
+            <div class="text-xs font-medium text-red-400 mb-1 animate-pulse">Overtime</div>
+            <div class="text-2xl font-bold font-mono text-red-500 animate-pulse">
+              +{{ formatTime(overtimeSeconds) }}
+            </div>
+          </div>
+
+          <!-- END Button -->
+          <Button
+            variant="primary"
+            size="sm"
+            @click="emit('end')"
+          >
+            END
+          </Button>
         </div>
       </div>
     </div>
