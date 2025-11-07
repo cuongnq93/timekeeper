@@ -28,7 +28,10 @@ const progressSegments = computed(() => {
 
   for (let i = 0; i < sortedCards.length; i++) {
     const card = sortedCards[i]
-    const startTime = i === 0 ? 0 : sortedCards[i - 1].time
+    if (!card) continue
+
+    const prevCard = i > 0 ? sortedCards[i - 1] : null
+    const startTime = prevCard ? prevCard.time : 0
     const endTime = card.time
 
     const startPercent = (startTime / props.totalTime) * 100
@@ -55,27 +58,29 @@ const progressSegments = computed(() => {
   // Thêm segment cuối
   if (sortedCards.length > 0) {
     const lastCard = sortedCards[sortedCards.length - 1]
-    const startTime = lastCard.time
+    if (lastCard) {
+      const startTime = lastCard.time
 
-    const startPercent = (startTime / props.totalTime) * 100
-    const endPercent = 100
-    const currentPercent = (props.currentTime / props.totalTime) * 100
+      const startPercent = (startTime / props.totalTime) * 100
+      const endPercent = 100
+      const currentPercent = (props.currentTime / props.totalTime) * 100
 
-    let filledPercent = 0
-    if (currentPercent >= endPercent) {
-      filledPercent = 100
-    } else if (currentPercent > startPercent) {
-      const segmentWidth = endPercent - startPercent
-      const filledWidth = currentPercent - startPercent
-      filledPercent = (filledWidth / segmentWidth) * 100
+      let filledPercent = 0
+      if (currentPercent >= endPercent) {
+        filledPercent = 100
+      } else if (currentPercent > startPercent) {
+        const segmentWidth = endPercent - startPercent
+        const filledWidth = currentPercent - startPercent
+        filledPercent = (filledWidth / segmentWidth) * 100
+      }
+
+      segments.push({
+        start: startPercent,
+        end: endPercent,
+        color: lastCard.backgroundColor,
+        filledPercent
+      })
     }
-
-    segments.push({
-      start: startPercent,
-      end: endPercent,
-      color: lastCard.backgroundColor,
-      filledPercent
-    })
   }
 
   return segments
@@ -86,8 +91,9 @@ const currentIndicatorColor = computed(() => {
   const sortedCards = [...props.cards].sort((a, b) => a.time - b.time)
 
   for (let i = sortedCards.length - 1; i >= 0; i--) {
-    if (props.currentTime >= sortedCards[i].time) {
-      return sortedCards[i].backgroundColor
+    const card = sortedCards[i]
+    if (card && props.currentTime >= card.time) {
+      return card.backgroundColor
     }
   }
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import Button from '@/components/Button.vue'
-import type { TimerConfig, SignalCard } from '@/types'
+import type { TimerConfig } from '@/types'
 import { DEFAULT_CONFIG } from '@/types'
 
 const props = defineProps<{
@@ -29,14 +29,17 @@ const formatTimeInput = (seconds: number): string => {
 
 const parseTimeInput = (timeStr: string): number => {
   const parts = timeStr.split(':')
-  const mins = parseInt(parts[0]) || 0
-  const secs = parseInt(parts[1]) || 0
+  const mins = parseInt(parts[0] || '0') || 0
+  const secs = parseInt(parts[1] || '0') || 0
   return mins * 60 + secs
 }
 
 const updateCardTime = (index: number, timeStr: string) => {
   const seconds = parseTimeInput(timeStr)
-  localConfig.value.cards[index].time = seconds
+  const card = localConfig.value.cards[index]
+  if (card) {
+    card.time = seconds
+  }
 }
 
 const updateTotalTime = (timeStr: string) => {

@@ -27,13 +27,13 @@ const sizeClasses = {
 <template>
   <button
     @click="emit('click')"
-    :disabled="disabled"
+    :disabled="props.disabled"
     :class="[
       'rounded-lg font-semibold transition-colors cursor-pointer',
       'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900',
-      variantClasses[variant || 'primary'],
-      sizeClasses[size || 'md'],
-      disabled ? 'opacity-50 cursor-not-allowed' : ''
+      variantClasses[props.variant || 'primary'],
+      sizeClasses[props.size || 'md'],
+      props.disabled ? 'opacity-50 cursor-not-allowed' : ''
     ]"
   >
     <slot></slot>

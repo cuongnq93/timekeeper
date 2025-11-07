@@ -5,7 +5,7 @@ import router from '@/router'
 import { registerSW } from 'virtual:pwa-register'
 
 // Register Service Worker
-const updateSW = registerSW({
+registerSW({
   onNeedRefresh() {
     console.log('New content available, please refresh.')
   },

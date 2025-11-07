@@ -33,11 +33,17 @@ const totalDuration = computed(() => formatTime(props.finalTime))
 
 // Create a summary of when each signal was shown
 const signalSummary = computed(() => {
-  return props.signalTimestamps.map(({ cardIndex, timestamp }) => ({
-    card: props.cards[cardIndex],
-    timestamp,
-    formattedTime: formatTime(timestamp)
-  }))
+  return props.signalTimestamps
+    .map(({ cardIndex, timestamp }) => {
+      const card = props.cards[cardIndex]
+      if (!card) return null
+      return {
+        card,
+        timestamp,
+        formattedTime: formatTime(timestamp)
+      }
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null)
 })
 
 const handleClose = () => {
