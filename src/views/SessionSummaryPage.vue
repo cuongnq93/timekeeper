@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import Button from '../components/Button.vue'
-import type { SignalCard } from '../types'
+import Button from '@/components/Button.vue'
+import type { SignalCard } from '@/types'
 
 const router = useRouter()
 
@@ -52,11 +52,17 @@ const totalDuration = computed(() => {
 // Create a summary of when each signal was shown
 const signalSummary = computed(() => {
   if (!sessionData.value) return []
-  return sessionData.value.signalTimestamps.map(({ cardIndex, timestamp }) => ({
-    card: sessionData.value!.cards[cardIndex],
-    timestamp,
-    formattedTime: formatTime(timestamp)
-  }))
+  return sessionData.value.signalTimestamps
+    .map(({ cardIndex, timestamp }) => {
+      const card = sessionData.value!.cards[cardIndex]
+      if (!card) return null
+      return {
+        card,
+        timestamp,
+        formattedTime: formatTime(timestamp)
+      }
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== null)
 })
 
 const handleNewSession = () => {
@@ -72,13 +78,6 @@ const handleBackToTimer = () => {
 
 <template>
   <div v-if="sessionData" class="min-h-screen bg-gray-900 text-white flex flex-col">
-    <!-- Header -->
-    <header class="bg-gray-800 border-b border-gray-700 p-4">
-      <div class="container mx-auto">
-        <h1 class="text-2xl font-bold">Session Summary</h1>
-      </div>
-    </header>
-
     <!-- Main Content -->
     <main class="flex-1 flex items-center justify-center p-8">
       <div class="max-w-4xl w-full">

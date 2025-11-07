@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import ProgressBar from './ProgressBar.vue'
-import Button from './Button.vue'
-import type { SignalCard } from '../types'
+import ProgressBar from '@/components/ProgressBar.vue'
+import Button from '@/components/Button.vue'
+import type { SignalCard } from '@/types'
 
 const props = defineProps<{
   currentTime: number

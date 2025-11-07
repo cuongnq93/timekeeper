@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import Button from './Button.vue'
-import type { TimerConfig, SignalCard } from '../types'
-import { DEFAULT_CONFIG } from '../types'
+import Button from '@/components/Button.vue'
+import type { TimerConfig, SignalCard } from '@/types'
+import { DEFAULT_CONFIG } from '@/types'
 
 const props = defineProps<{
   config: TimerConfig

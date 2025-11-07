@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import Button from './Button.vue'
-import type { SignalCard } from '../types'
+import Button from '@/components/Button.vue'
+import type { SignalCard } from '@/types'
 
 const props = defineProps<{
   show: boolean

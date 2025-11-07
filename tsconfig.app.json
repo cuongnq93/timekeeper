@@ -5,6 +5,12 @@
     "types": ["vite/client"],
     "lib": ["ES2017", "DOM"],
 
+    /* Path Alias */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

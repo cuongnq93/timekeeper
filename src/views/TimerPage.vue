@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import CountdownTimer from '../components/CountdownTimer.vue'
-import SignalCard from '../components/SignalCard.vue'
-import TimerOverlay from '../components/TimerOverlay.vue'
-import Settings from '../components/Settings.vue'
-import Button from '../components/Button.vue'
-import { DEFAULT_CONFIG } from '../types'
-import type { TimerConfig, SignalType } from '../types'
+import CountdownTimer from '@/components/CountdownTimer.vue'
+import SignalCard from '@/components/SignalCard.vue'
+import TimerOverlay from '@/components/TimerOverlay.vue'
+import Settings from '@/components/Settings.vue'
+import Button from '@/components/Button.vue'
+import { DEFAULT_CONFIG } from '@/types'
+import type { TimerConfig } from '@/types'
 
 const router = useRouter()
 
@@ -83,6 +83,7 @@ const checkSignals = () => {
 
   for (let i = config.value.cards.length - 1; i >= 0; i--) {
     const card = config.value.cards[i]
+    if (!card) continue
     if (currentTime.value >= card.time) {
       if (currentSignalIndex.value !== i) {
         currentSignalIndex.value = i
@@ -323,8 +324,6 @@ onUnmounted(() => {
           <p class="text-xs text-red-400">
             <strong>DEBUG MODE:</strong> Timer running at {{ debugSettings.multiplier }}x speed
           </p>
-        </div>
-        <div v-else class="mt-2 pt-2 border-t border-gray-700">
           <p class="text-xs opacity-50">
             Debug mode: Add <code class="bg-gray-700 px-1 rounded">?debug=1&speed=x2</code> to URL (x2, x4, x10)
           </p>

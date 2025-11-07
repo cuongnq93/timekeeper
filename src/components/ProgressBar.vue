@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { SignalCard } from '../types'
+import type { SignalCard } from '@/types'
 
 const props = defineProps<{
   currentTime: number

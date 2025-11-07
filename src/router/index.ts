@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TimerPage from '../views/TimerPage.vue'
-import SessionSummaryPage from '../views/SessionSummaryPage.vue'
+import TimerPage from '@/views/TimerPage.vue'
+import SessionSummaryPage from '@/views/SessionSummaryPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -22,7 +22,7 @@ const router = createRouter({
 })
 
 // Navigation guard to prevent direct access to summary without session data
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   if (to.meta.requiresSessionData && !localStorage.getItem('sessionData')) {
     next({ name: 'timer' })
   } else {
