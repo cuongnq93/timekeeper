@@ -1,0 +1,19 @@
+name = "timekeeper"
+compatibility_date = "2024-01-01"
+
+pages_build_output_dir = "dist"
+
+[site]
+bucket = "./dist"
+
+# Build configuration
+[build]
+command = "yarn build"
+
+[build.upload]
+format = "service-worker"
+
+# Environment variables (optional)
+[vars]
+VITE_APP_URL = "https://timekeeper.cuongsolution.com"
+VITE_APP_NAME = "TimeKeeper"
